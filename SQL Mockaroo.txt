@@ -54,7 +54,7 @@ insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goa
 insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (6, 'Philippines', 'PHI', 'Fintone', 1, 4, 10, 4, 9, 2, 5);
 insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (7, 'Pakistan', 'PAK', 'Temp', 10, 1, 5, 2, 3, 2, 11);
 insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (8, 'Panama', 'PAN', 'Zoolab', 2, 5, 4, 1, 9, 2, 7);
-insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (9, 'Ugana', 'Uga', 'Flexidy', 5, 8, 2, 10, 9, 3, 13);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (9, 'Uganda', 'UGA', 'Flexidy', 5, 8, 2, 10, 9, 3, 13);
 insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (10, 'Norway', 'NOR', 'Duobam', 6, 6, 8, 4, 1, 3, 12);
 insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (11, 'Peru', 'PER', 'It', 6, 6, 10, 5, 10, 3, 12);
 insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (12, 'France', 'FRA', 'Zontrax', 3, 7, 7, 10, 1, 3, 10);
