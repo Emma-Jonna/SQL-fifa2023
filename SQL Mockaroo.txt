@@ -1,0 +1,126 @@
+VENUES
+
+create table venues (
+	id INT,
+	city VARCHAR(50),
+	name VARCHAR(50),
+	capacity INT
+);
+insert into Venues (id, city, name, capacity) values (1, 'Cherepovets', 'Shoshone', 52475);
+insert into Venues (id, city, name, capacity) values (2, 'Skýros', 'Hanover', 47880);
+insert into Venues (id, city, name, capacity) values (3, 'Wonorejo', 'Coolidge', 43020);
+insert into Venues (id, city, name, capacity) values (4, 'Baisha', 'Boyd', 41822);
+insert into Venues (id, city, name, capacity) values (5, 'Yi’an', 'Acker', 45848);
+
+
+REFEREES
+
+create table referees (
+	id INT,
+	first_name VARCHAR(50),
+	last_name VARCHAR(50)
+);
+insert into referees (id, first_name, last_name) values (1, 'Tamra', 'Lambarth');
+insert into referees (id, first_name, last_name) values (2, 'Lucy', 'Muldoon');
+insert into referees (id, first_name, last_name) values (3, 'Milt', 'Lanaway');
+insert into referees (id, first_name, last_name) values (4, 'Tarra', 'Crichmere');
+insert into referees (id, first_name, last_name) values (5, 'Sergei', 'Currum');
+insert into referees (id, first_name, last_name) values (6, 'Marji', 'Kenchington');
+insert into referees (id, first_name, last_name) values (7, 'Kariotta', 'Bottrell');
+insert into referees (id, first_name, last_name) values (8, 'Hubert', 'Poll');
+insert into referees (id, first_name, last_name) values (9, 'Fair', 'Shipsey');
+insert into referees (id, first_name, last_name) values (10, 'Manya', 'Crace');
+
+TEAMS
+
+create table teams (
+	id INT,
+	name VARCHAR(50),
+	abbreviation VARCHAR(50),
+	flag VARCHAR(50),
+	wins INT,
+	draws INT,
+	losses INT,
+	scored_goals INT,
+	conceded_goals INT,
+	group INT,
+	points INT
+);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (1, 'China', 'CN', 'Voltsillam', 1, 6, 10, 5, 2, 4, 64);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (2, 'Brazil', 'BR', 'Konklab', 9, 2, 5, 2, 8, 3, 65);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (3, 'China', 'CN', 'Fintone', 10, 6, 6, 3, 1, 4, 99);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (4, 'Sweden', 'SE', 'Transcof', 1, 2, 7, 10, 9, 7, 18);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (5, 'China', 'CN', 'Home Ing', 5, 5, 8, 6, 6, 3, 16);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (6, 'Philippines', 'PH', 'Fintone', 1, 4, 10, 4, 9, 7, 27);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (7, 'China', 'CN', 'Temp', 10, 1, 5, 2, 3, 1, 88);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (8, 'China', 'CN', 'Zoolab', 2, 5, 4, 1, 9, 1, 85);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (9, 'China', 'CN', 'Flexidy', 5, 8, 2, 10, 9, 3, 98);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (10, 'China', 'CN', 'Duobam', 6, 6, 8, 4, 1, 8, 1);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (11, 'China', 'CN', 'It', 6, 6, 10, 5, 10, 3, 37);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (12, 'France', 'FR', 'Zontrax', 3, 7, 7, 10, 1, 5, 25);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (13, 'China', 'CN', 'Voltsillam', 4, 10, 6, 3, 2, 4, 47);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (14, 'Philippines', 'PH', 'Duobam', 9, 2, 5, 5, 2, 4, 7);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (15, 'Vietnam', 'VN', 'Toughjoyfax', 7, 5, 4, 5, 10, 2, 70);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (16, 'Ireland', 'IE', 'Quo Lux', 10, 6, 8, 10, 5, 2, 32);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (17, 'France', 'FR', 'Ventosanzap', 7, 8, 7, 5, 8, 7, 52);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (18, 'Argentina', 'AR', 'Tempsoft', 1, 9, 3, 9, 10, 2, 26);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (19, 'Philippines', 'PH', 'Namfix', 4, 10, 2, 5, 5, 2, 8);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (20, 'China', 'CN', 'Mat Lam Tam', 10, 8, 7, 7, 9, 8, 66);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (21, 'China', 'CN', 'Bigtax', 2, 9, 10, 10, 6, 1, 42);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (22, 'China', 'CN', 'Domainer', 4, 5, 4, 3, 9, 4, 54);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (23, 'Brazil', 'BR', 'Sonair', 1, 10, 10, 9, 1, 8, 75);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (24, 'China', 'CN', 'Bamity', 9, 7, 5, 9, 4, 2, 76);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (25, 'Philippines', 'PH', 'Cardguard', 1, 7, 1, 10, 10, 5, 2);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (26, 'Canada', 'CA', 'Domainer', 9, 2, 10, 8, 4, 5, 80);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (27, 'China', 'CN', 'Ventosanzap', 8, 1, 8, 1, 3, 8, 52);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (28, 'Philippines', 'PH', 'Mat Lam Tam', 3, 2, 3, 10, 8, 8, 62);
+insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (29, 'China', 'CN', 'Veribet', 4, 9, 1, 10, 7, 6, 73);
+
+COACHES
+
+create table coaches (
+	id INT,
+	first_name VARCHAR(50),
+	last_name VARCHAR(50),
+	team_id INT
+);
+insert into coaches (id, first_name, last_name, team_id) values (1, 'Dare', 'Capinetti', 12);
+insert into coaches (id, first_name, last_name, team_id) values (2, 'Barbette', 'Chippindale', 22);
+insert into coaches (id, first_name, last_name, team_id) values (3, 'Heall', 'Gavrielly', 27);
+insert into coaches (id, first_name, last_name, team_id) values (4, 'Randa', 'Phillippo', 25);
+insert into coaches (id, first_name, last_name, team_id) values (5, 'Geralda', 'Alleburton', 17);
+insert into coaches (id, first_name, last_name, team_id) values (6, 'Garrett', 'Warde', 8);
+insert into coaches (id, first_name, last_name, team_id) values (7, 'Reidar', 'Perrelle', 13);
+insert into coaches (id, first_name, last_name, team_id) values (8, 'Elianore', 'Canham', 18);
+insert into coaches (id, first_name, last_name, team_id) values (9, 'Lindie', 'Izsak', 23);
+insert into coaches (id, first_name, last_name, team_id) values (10, 'Babbette', 'Brandin', 22);
+insert into coaches (id, first_name, last_name, team_id) values (11, 'Gardner', 'Watkiss', 17);
+insert into coaches (id, first_name, last_name, team_id) values (12, 'Jacki', 'Gonnelly', 4);
+insert into coaches (id, first_name, last_name, team_id) values (13, 'Elwyn', 'Caen', 4);
+insert into coaches (id, first_name, last_name, team_id) values (14, 'Matti', 'Shawyer', 22);
+insert into coaches (id, first_name, last_name, team_id) values (15, 'Elnora', 'Cowwell', 3);
+insert into coaches (id, first_name, last_name, team_id) values (16, 'Rabi', 'Rolin', 12);
+insert into coaches (id, first_name, last_name, team_id) values (17, 'Nerty', 'Feldheim', 14);
+insert into coaches (id, first_name, last_name, team_id) values (18, 'Aubry', 'Canto', 1);
+insert into coaches (id, first_name, last_name, team_id) values (19, 'Chloe', 'Beushaw', 1);
+insert into coaches (id, first_name, last_name, team_id) values (20, 'Zebulen', 'Santen', 25);
+insert into coaches (id, first_name, last_name, team_id) values (21, 'Cullin', 'Potapczuk', 6);
+insert into coaches (id, first_name, last_name, team_id) values (22, 'Genny', 'O''Shirine', 1);
+insert into coaches (id, first_name, last_name, team_id) values (23, 'Adrianna', 'Aarons', 1);
+insert into coaches (id, first_name, last_name, team_id) values (24, 'Sully', 'Egell', 6);
+insert into coaches (id, first_name, last_name, team_id) values (25, 'Giacinta', 'McGlaughn', 2);
+insert into coaches (id, first_name, last_name, team_id) values (26, 'Fabiano', 'Tosh', 27);
+insert into coaches (id, first_name, last_name, team_id) values (27, 'Tobe', 'Dutt', 10);
+insert into coaches (id, first_name, last_name, team_id) values (28, 'Silvain', 'Grelka', 2);
+insert into coaches (id, first_name, last_name, team_id) values (29, 'Jobye', 'Pinchen', 22);
+insert into coaches (id, first_name, last_name, team_id) values (30, 'Annalise', 'McLugaish', 12);
+insert into coaches (id, first_name, last_name, team_id) values (31, 'Adolphe', 'Pember', 5);
+insert into coaches (id, first_name, last_name, team_id) values (32, 'Alex', 'Dodd', 22);
+insert into coaches (id, first_name, last_name, team_id) values (33, 'Moira', 'Greep', 3);
+insert into coaches (id, first_name, last_name, team_id) values (34, 'Chalmers', 'De Goey', 27);
+insert into coaches (id, first_name, last_name, team_id) values (35, 'Niles', 'Brazenor', 17);
+insert into coaches (id, first_name, last_name, team_id) values (36, 'Frederigo', 'Gwyn', 19);
+insert into coaches (id, first_name, last_name, team_id) values (37, 'Marion', 'Busch', 24);
+insert into coaches (id, first_name, last_name, team_id) values (38, 'Rory', 'Cosgrive', 18);
+insert into coaches (id, first_name, last_name, team_id) values (39, 'Kimbra', 'Courtman', 1);
+insert into coaches (id, first_name, last_name, team_id) values (40, 'Tripp', 'Stribbling', 17);
