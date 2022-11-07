@@ -83,7 +83,7 @@ insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goa
 COACHES
 
 create table coaches (
-	id INT,
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	first_name VARCHAR(50),
 	last_name VARCHAR(50),
 	team_id INTEGER,
@@ -444,10 +444,10 @@ insert into cards (id, game_id, reciever, referee, minute_given, card_color) val
 SCHEDULE
 
 create table schedule (
-	id INT,
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	date_ DATE,
-	venue_id INT,
-	game_id INT,
+	venue_id INTEGER,
+	game_id INTEGER,
 	FOREIGN KEY (game_id) REFERENCES games(id),
     	FOREIGN KEY (venue_id) REFERENCES venues(id)
 );
