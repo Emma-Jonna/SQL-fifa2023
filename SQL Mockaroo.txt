@@ -1,10 +1,10 @@
 VENUES
 
 create table venues (
-	id INT,
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	city VARCHAR(50),
 	name VARCHAR(50),
-	capacity INT
+	capacity INTEGER
 );
 insert into Venues (id, city, name, capacity) values (1, 'Cherepovets', 'Shoshone', 52475);
 insert into Venues (id, city, name, capacity) values (2, 'Skyros', 'Hanover', 47880);
@@ -16,7 +16,7 @@ insert into Venues (id, city, name, capacity) values (5, 'Yian', 'Acker', 45848)
 REFEREES
 
 create table referees (
-	id INT,
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	first_name VARCHAR(50),
 	last_name VARCHAR(50)
 );
@@ -34,17 +34,17 @@ insert into referees (id, first_name, last_name) values (10, 'Manya', 'Crace');
 TEAMS
 
 create table teams (
-	id INT,
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	name VARCHAR(50),
-	abbreviation VARCHAR(50),
-	flag VARCHAR(50),
-	wins INT,
-	draws INT,
-	losses INT,
-	scored_goals INT,
-	conceded_goals INT,
-	group INT,
-	points INT
+	abbreviation VARCHAR(10),
+	flag VARCHAR(500),
+	wins INTEGER,
+	draws INTEGER,
+	losses INTEGER,
+	scored_goals INTEGER,
+	conceded_goals INTEGER,
+	group_name VARCHAR(5),
+	points INTEGER
 );
 insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (1, 'Afghanistan', 'AFG', 'Voltsillam', 1, 6, 10, 5, 2, 1, 7);
 insert into teams (id, name, abbreviation, flag, wins, draws, losses, scored_goals, conceded_goals, group, points) values (2, 'Brazil', 'BRA', 'Konklab', 9, 2, 5, 2, 8, 1, 11);
@@ -86,7 +86,8 @@ create table coaches (
 	id INT,
 	first_name VARCHAR(50),
 	last_name VARCHAR(50),
-	team_id INT
+	team_id INTEGER,
+	FOREIGN KEY (team_id) REFERENCES teams(id)
 );
 insert into coaches (id, first_name, last_name, team_id) values (1, 'Dare', 'Capinetti', 1);
 insert into coaches (id, first_name, last_name, team_id) values (2, 'Barbette', 'Chippindale', 2);
@@ -124,22 +125,23 @@ insert into coaches (id, first_name, last_name, team_id) values (32, 'Alex', 'Do
 PLAYERS
 
 create table players (
-	id INT,
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	first_name VARCHAR(50),
 	last_name VARCHAR(50),
-	team_id INT,
-	minutes_played INT,
-	shirt_number INT,
-	yellow_cards INT,
-	red_cards INT,
-	available VARCHAR(50),
-	injured VARCHAR(50),
+	team_id INTEGER,
+	minutes_played INTEGER,
+	shirt_number INTEGER,
+	yellow_cards INTEGER,
+	red_cards INTEGER,
+	available BOOLEAN,
+	injured BOOLEAN,
 	role VARCHAR(50),
-	goals INT,
-	assists INT,
-	shots INT,
-	goals_saved INT,
-	goals_conceded INT
+	goals INTEGER,
+	assists INTEGER,
+	shots INTEGER,
+	goals_saved INTEGER,
+	goals_conceded INTEGER,
+	FOREIGN KEY (team_id) REFERENCES teams(id)
 );
 insert into players (id, first_name, last_name, team_id, minutes_played, shirt_number, yellow_cards, red_cards, available, injured, role, goals, assists, shots, goals_saved, goals_conceded) values (1, 'Rafaela', 'Quinnet', 8, 89, 46, 2, 6, false, false, false, 93, 93, 4, 83, 43);
 insert into players (id, first_name, last_name, team_id, minutes_played, shirt_number, yellow_cards, red_cards, available, injured, role, goals, assists, shots, goals_saved, goals_conceded) values (2, 'Gale', 'Welbeck', 11, 69, 87, 11, 7, false, false, true, 19, 55, 72, 67, 58);
@@ -245,14 +247,19 @@ insert into players (id, first_name, last_name, team_id, minutes_played, shirt_n
 GAMES
 
 create table games (
-	id INT,
-	home_team_id INT,
-	away_team_id INT,
-	venue_id INT,
-	winner INT,
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	home_team_id INTEGER,
+	away_team_id INTEGER,
+	venue_id INTEGER,
+	winner INTEGER,
 	stage VARCHAR(50),
-	spectators INT,
-	head_referee INT
+	spectators INTEGER,
+	head_referee INTEGER,
+	FOREIGN KEY (home_team_id) REFERENCES teams(id),
+    	FOREIGN KEY (away_team_id) REFERENCES teams(id),
+   	FOREIGN KEY (winner_id) REFERENCES teams(id),
+    	FOREIGN KEY (head_referee_id) REFERENCES referees(id),
+    	FOREIGN KEY (venue_id) REFERENCES venues(id)
 );
 insert into games (id, home_team_id, away_team_id, venue_id, winner, stage, spectators, head_referee) values (1, 28, 4, 1, 2, group, 28993, 4);
 insert into games (id, home_team_id, away_team_id, venue_id, winner, stage, spectators, head_referee) values (2, 23, 11, 3, 14, group, 42404, 6);
@@ -322,122 +329,127 @@ insert into games (id, home_team_id, away_team_id, venue_id, winner, stage, spec
 CARDS
 
 create table cards (
-	id INT,
-	game_id INT,
-	reciever INT,
-	referee INT,
-	minute_given INT,
-	card_color VARCHAR(50)
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	game_id INTEGER,
+	reciever INTEGER,
+	referee_id INTEGER,
+	minute_given INTEGER,
+	card_color VARCHAR(50),
+	FOREIGN KEY (referee_id) REFERENCES referees(id),
+    	FOREIGN KEY (game_id) REFERENCES games(id),
+    	FOREIGN KEY (reciever) REFERENCES players(id)
 );
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (1, 52, 400, 1, 112, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (2, 30, 587, 5, 115, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (3, 10, 270, 4, 22, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (4, 34, 359, 9, 85, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (5, 34, 611, 7, 41, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (6, 3, 321, 7, 93, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (7, 27, 316, 3, 96, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (8, 9, 358, 7, 12, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (9, 38, 469, 8, 26, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (10, 25, 440, 8, 4, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (11, 20, 387, 8, 62, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (12, 32, 79, 1, 90, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (13, 62, 408, 2, 71, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (14, 45, 461, 7, 20, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (15, 19, 4, 7, 53, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (16, 12, 599, 9, 36, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (17, 9, 538, 5, 111, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (18, 3, 580, 3, 51, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (19, 1, 59, 5, 3, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (20, 50, 380, 2, 21, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (21, 59, 514, 9, 53, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (22, 41, 567, 9, 32, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (23, 9, 552, 5, 112, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (24, 37, 251, 6, 16, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (25, 6, 81, 5, 91, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (26, 15, 468, 8, 92, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (27, 53, 575, 10, 37, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (28, 56, 519, 6, 72, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (29, 28, 48, 7, 20, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (30, 51, 265, 4, 94, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (31, 59, 378, 5, 106, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (32, 11, 280, 4, 24, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (33, 39, 415, 4, 54, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (34, 28, 283, 8, 44, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (35, 63, 254, 6, 58, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (36, 43, 366, 8, 13, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (37, 22, 159, 6, 43, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (38, 16, 95, 10, 40, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (39, 42, 161, 5, 57, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (40, 41, 48, 1, 8, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (41, 25, 583, 5, 46, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (42, 48, 20, 10, 108, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (43, 11, 37, 1, 39, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (44, 13, 471, 4, 35, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (45, 43, 498, 2, 103, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (46, 35, 202, 1, 93, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (47, 18, 134, 3, 41, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (48, 5, 244, 8, 57, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (49, 56, 227, 10, 104, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (50, 41, 414, 9, 101, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (51, 39, 590, 9, 14, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (52, 51, 295, 7, 24, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (53, 35, 437, 2, 6, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (54, 20, 37, 2, 73, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (55, 15, 458, 7, 45, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (56, 4, 348, 6, 53, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (57, 38, 550, 6, 113, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (58, 41, 177, 10, 39, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (59, 29, 267, 1, 20, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (60, 32, 297, 8, 5, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (61, 48, 72, 3, 7, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (62, 29, 550, 6, 15, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (63, 42, 490, 2, 33, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (64, 38, 337, 6, 22, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (65, 51, 295, 6, 70, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (66, 31, 22, 1, 67, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (67, 20, 176, 5, 114, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (68, 24, 517, 3, 44, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (69, 17, 531, 5, 65, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (70, 13, 39, 2, 83, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (71, 36, 173, 10, 19, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (72, 7, 402, 2, 105, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (73, 10, 627, 8, 6, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (74, 57, 59, 8, 11, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (75, 34, 224, 5, 60, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (76, 37, 325, 6, 95, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (77, 55, 374, 4, 6, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (78, 12, 478, 2, 58, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (79, 44, 56, 3, 24, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (80, 37, 635, 2, 71, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (81, 42, 134, 8, 58, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (82, 25, 47, 4, 120, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (83, 58, 436, 2, 88, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (84, 50, 406, 10, 112, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (85, 32, 284, 5, 61, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (86, 40, 203, 3, 104, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (87, 44, 593, 7, 105, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (88, 2, 19, 8, 117, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (89, 21, 99, 8, 117, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (90, 20, 113, 7, 57, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (91, 46, 407, 9, 24, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (92, 30, 447, 5, 1, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (93, 4, 310, 4, 21, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (94, 29, 619, 7, 112, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (95, 29, 428, 4, 86, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (96, 59, 537, 10, 93, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (97, 21, 228, 8, 95, 'Male');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (98, 52, 624, 2, 2, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (99, 49, 492, 5, 93, 'Female');
-insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (100, 27, 49, 9, 87, 'Female');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (1, 52, 400, 1, 112, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (2, 30, 587, 5, 115, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (3, 10, 270, 4, 22, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (4, 34, 359, 9, 85, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (5, 34, 611, 7, 41, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (6, 3, 321, 7, 93, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (7, 27, 316, 3, 96, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (8, 9, 358, 7, 12, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (9, 38, 469, 8, 26, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (10, 25, 440, 8, 4, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (11, 20, 387, 8, 62, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (12, 32, 79, 1, 90, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (13, 62, 408, 2, 71, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (14, 45, 461, 7, 20, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (15, 19, 4, 7, 53, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (16, 12, 599, 9, 36, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (17, 9, 538, 5, 111, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (18, 3, 580, 3, 51, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (19, 1, 59, 5, 3, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (20, 50, 380, 2, 21, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (21, 59, 514, 9, 53, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (22, 41, 567, 9, 32, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (23, 9, 552, 5, 112, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (24, 37, 251, 6, 16, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (25, 6, 81, 5, 91, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (26, 15, 468, 8, 92, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (27, 53, 575, 10, 37, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (28, 56, 519, 6, 72, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (29, 28, 48, 7, 20, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (30, 51, 265, 4, 94, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (31, 59, 378, 5, 106, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (32, 11, 280, 4, 24, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (33, 39, 415, 4, 54, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (34, 28, 283, 8, 44, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (35, 63, 254, 6, 58, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (36, 43, 366, 8, 13, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (37, 22, 159, 6, 43, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (38, 16, 95, 10, 40, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (39, 42, 161, 5, 57, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (40, 41, 48, 1, 8, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (41, 25, 583, 5, 46, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (42, 48, 20, 10, 108, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (43, 11, 37, 1, 39, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (44, 13, 471, 4, 35, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (45, 43, 498, 2, 103, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (46, 35, 202, 1, 93, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (47, 18, 134, 3, 41, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (48, 5, 244, 8, 57, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (49, 56, 227, 10, 104, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (50, 41, 414, 9, 101, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (51, 39, 590, 9, 14, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (52, 51, 295, 7, 24, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (53, 35, 437, 2, 6, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (54, 20, 37, 2, 73, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (55, 15, 458, 7, 45, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (56, 4, 348, 6, 53, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (57, 38, 550, 6, 113, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (58, 41, 177, 10, 39, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (59, 29, 267, 1, 20, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (60, 32, 297, 8, 5, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (61, 48, 72, 3, 7, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (62, 29, 550, 6, 15, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (63, 42, 490, 2, 33, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (64, 38, 337, 6, 22, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (65, 51, 295, 6, 70, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (66, 31, 22, 1, 67, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (67, 20, 176, 5, 114, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (68, 24, 517, 3, 44, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (69, 17, 531, 5, 65, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (70, 13, 39, 2, 83, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (71, 36, 173, 10, 19, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (72, 7, 402, 2, 105, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (73, 10, 627, 8, 6, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (74, 57, 59, 8, 11, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (75, 34, 224, 5, 60, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (76, 37, 325, 6, 95, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (77, 55, 374, 4, 6, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (78, 12, 478, 2, 58, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (79, 44, 56, 3, 24, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (80, 37, 635, 2, 71, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (81, 42, 134, 8, 58, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (82, 25, 47, 4, 120, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (83, 58, 436, 2, 88, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (84, 50, 406, 10, 112, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (85, 32, 284, 5, 61, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (86, 40, 203, 3, 104, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (87, 44, 593, 7, 105, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (88, 2, 19, 8, 117, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (89, 21, 99, 8, 117, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (90, 20, 113, 7, 57, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (91, 46, 407, 9, 24, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (92, 30, 447, 5, 1, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (93, 4, 310, 4, 21, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (94, 29, 619, 7, 112, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (95, 29, 428, 4, 86, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (96, 59, 537, 10, 93, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (97, 21, 228, 8, 95, 'Red');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (98, 52, 624, 2, 2, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (99, 49, 492, 5, 93, 'Yellow');
+insert into cards (id, game_id, reciever, referee, minute_given, card_color) values (100, 27, 49, 9, 87, 'Yellow');
 
 
 SCHEDULE
 
 create table schedule (
 	id INT,
-	date DATE,
+	date_ DATE,
 	venue_id INT,
-	game_id INT
+	game_id INT,
+	FOREIGN KEY (game_id) REFERENCES games(id),
+    	FOREIGN KEY (venue_id) REFERENCES venues(id)
 );
 insert into schedule (id, date, venue_id, game_id) values (1, '2023-07-20', 3, 1);
 insert into schedule (id, date, venue_id, game_id) values (2, '2023-07-20', 5, 2);
@@ -508,14 +520,18 @@ insert into schedule (id, date, venue_id, game_id) values (64, '2023-08-20', 2, 
 GOALS
 
 create table cards (
-	id INT,
-	game_id INT,
-	scorer_id INT,
-	conceder_id INT,
-	assist_id INT,
-	minute_scored INT,
-	penalty VARCHAR(50),
-	shoot_out VARCHAR(50)
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	game_id INTEGER,
+	scorer_id INTEGER,
+	conceder_id INTEGER,
+	assist_id INTEGER,
+	minute_scored INTEGER,
+	penalty BOOLEAN,
+	shoot_out BOOLEAN,
+	FOREIGN KEY (game_id) REFERENCES games(id),
+    	FOREIGN KEY (scorer_id) REFERENCES players(id),
+    	FOREIGN KEY (conceder_id) REFERENCES players(id),
+    	FOREIGN KEY (assist_id) REFERENCES players(id)
 );
 insert into cards (id, game_id, scorer_id, conceder_id, assist_id, minute_scored, penalty, shoot_out) values (1, 51, 420, 242, 535, 12, false, true);
 insert into cards (id, game_id, scorer_id, conceder_id, assist_id, minute_scored, penalty, shoot_out) values (2, 25, 267, 85, 133, 59, false, true);
@@ -771,9 +787,10 @@ insert into cards (id, game_id, scorer_id, conceder_id, assist_id, minute_scored
 PLAYERS_GAMES
 
 create table players_games (
-	player_id INT,
-	games_id INT,
-	subbed_in VARCHAR(50)
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	player_id INTEGER,
+	game_id INTEGER,
+	subbed_in BOOLEAN
 );
 insert into players_games (player_id, games_id, subbed_in) values (120, 11, true);
 insert into players_games (player_id, games_id, subbed_in) values (89, 54, false);
