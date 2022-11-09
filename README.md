@@ -72,7 +72,6 @@ FROM(
 )
 GROUP BY id
 ORDER BY n_goals DESC, n_assists DESC LIMIT 10;
-
 ````
 
 **Problem 6: Detailed info for a finished game including teams, players, goals, disciplinary, substitutions, referee, venue, date. Every situation often includes one or more players, a time and sometimes additional info.**
