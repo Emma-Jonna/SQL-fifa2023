@@ -54,6 +54,24 @@ where games.id > 49
 **Problem 5: List the top-10 players sorted first by goals, then by assists**
 SQL QUERY: 
 ````
+SELECT id, SUM(n_goals) as n_goals, SUM(n_assists) as n_assists
+FROM(
+	SELECT players.id, count(players.id) as n_goals, 0 as n_assists
+	FROM goals
+	LEFT JOIN players
+	ON players.id = goals.scorer_id
+	GROUP BY players.id
+	
+	UNION
+	
+	SELECT players.id, 0 as n_goals, count(players.id) as n_assists
+	FROM goals
+	LEFT JOIN players
+	ON players.id = goals.assist_id
+	GROUP BY players.id
+)
+GROUP BY id
+ORDER BY n_goals DESC, n_assists DESC LIMIT 10;
 
 ````
 
