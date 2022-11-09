@@ -66,9 +66,14 @@ SQL QUERY:
 **Problem 7: List all games today.**
 SQL QUERY: 
 ````
-select schedule.*, games.* from schedule
-inner join games on schedule.game_id = games.id
-where date = "2023-07-21"
+select schedule.*, games.*, H.name as home_team, A.name as away_team  from schedule
+inner join games 
+on schedule.game_id = games.id
+inner join teams H
+on H.id = games.home_team_id
+inner join teams A
+on A.id = games.away_team_id
+where date = "2023-07-22"
 ````
 
 **Problem 8: List a group table with teams, wins, draws, losses, goal difference and points.**
