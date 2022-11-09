@@ -1,1 +1,3 @@
 # SQL-fifa2023
+
+QUERIES:
