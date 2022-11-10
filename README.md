@@ -77,7 +77,35 @@ ORDER BY n_goals DESC, n_assists DESC LIMIT 10;
 **Problem 6: Detailed info for a finished game including teams, players, goals, disciplinary, substitutions, referee, venue, date. Every situation often includes one or more players, a time and sometimes additional info.**
 SQL QUERY: 
 ````
+	SELECT distinct(players.first_name), players.last_name, players.team_id,
+	players_games.player_id, goals.*, players_games.game_id, schedule.date, players_games.subbed_in,
+	H.name as home_team, A.name as away_team, games.venue_id, venues.name, games.winner_id, games.stage, games.head_referee_id,
+	referees.first_name, referees.last_name, cards.card_color
+	from players
 
+	INNER join teams
+	on players.team_id = teams.id
+	LEFT join players_games
+	on players.id = players_games.player_id
+	inner join games
+	on games.id = players_games.game_id
+	inner join referees
+	on games.head_referee_id = referees.id
+	inner join teams H
+	on H.id = games.home_team_id
+	inner join teams A
+	on A.id = games.away_team_id
+	inner join schedule
+	on schedule.game_id = games.id
+	inner join venues
+	on venues.id = games.venue_id
+	left join cards
+	on players_games.player_id = cards.reciever
+	LEFT join goals
+	on goals.scorer_id = players_games.player_id
+	WHERE stage like "final"
+
+	order by players.first_name ASC;
 ````
 
 **Problem 7: List all games today.**
