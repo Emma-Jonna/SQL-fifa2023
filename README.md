@@ -124,17 +124,32 @@ where date = "2023-07-22"
 **Problem 8: List a group table with teams, wins, draws, losses, goal difference and points.**
 SQL QUERY: 
 ````
-select teams.*, count(teams.id) as conceded, 0 as scored from goals
-inner join players c on goals.conceder_id = c.id
-inner join teams on c.team_id = teams.id
-where teams.group_name = "A"
-group BY teams.id
-
-UNION
-
-SELECT s.*, 0 as conceded, count(s.id) as scored from goals
-inner join players g on goals.scorer_id = g.id
-inner join teams s on g.team_id = s.id
-where s.group_name = "A"
-group BY s.id
+SELECT teams.*, scored_goals - conceded_goals as goal_difference
+FROM teams
+INNER JOIN(
+	SELECT id as team_id, SUM(conceded) as conceded_goals, SUM(scored) as scored_goals
+	FROM(
+		SELECT teams.id, 0 as conceded, count(teams.id) as scored
+	    FROM goals
+	    INNER JOIN players
+	    ON goals.scorer_id = players.id
+	    INNER JOIN teams
+	    ON players.team_id = teams.id
+	    WHERE teams.group_name = "A"
+	    GROUP BY teams.id
+	
+	    UNION
+	
+	    SELECT teams.id, count(teams.id) as conceded, 0 as scored
+	    FROM goals
+	    INNER JOIN players
+	    ON goals.conceder_id = players.id
+	    INNER JOIN teams
+	    ON players.team_id = teams.id
+	    WHERE teams.group_name = "A"
+	    GROUP BY teams.id
+	)
+	GROUP BY id
+)
+ON team_id = teams.id;
 ````
