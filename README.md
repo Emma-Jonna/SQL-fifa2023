@@ -24,21 +24,20 @@ SQL QUERY:
     where home_team_id = 14 or away_team_id = 14
 ````
 
-**Hur?**
-Svar: 
+
 
 **Problem 3: List a teams roster with players and coach, goals, assists, shots and disciplinary, matches played, matches started, minutes played. Number of clean sheets and save percentage for the goalkeepers**
 
 SQL QUERY: 
 ````
-select DISTINCT(players.first_name), goals.scorer_id, goals.conceder_id, goals.assist_id
+select DISTINCT(players.first_name), coaches.first_name as coach_name, goals.scorer_id, goals.conceder_id, goals.assist_id, players.shots, cards.card_color, players_games.subbed_in, players.minutes_played
 from players
 inner join coaches on coaches.team_id = players.team_id
-inner join goals on goals.scorer_id = players.id
-where players.team_id = 1
-
+left join goals on goals.scorer_id = players.id
+left join cards on cards.reciever = players.id
+left join players_games on players_games.player_id = players.id
+where players.team_id = 14;
 ````
-**Hur?**
 
 **Problem 4: List the playoff tree with team abbreviations and -flags, score (if any)/date and time if no result.**
 
